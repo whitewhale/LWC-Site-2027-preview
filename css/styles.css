@@ -264,3 +264,16 @@ footer{background:#101720;color:#d8dfe5;padding:40px 0}.foot{display:flex;align-
 .campus-theme .demo-head h2,.campus-theme .demo-side h3,.campus-theme .event h4{font-family:var(--campus-font);color:var(--campus-ink);transition:color .8s}
 .campus-theme .demo-side{background:var(--campus-primary);transition:background-color .8s}
 @media(max-width:650px){.campus-masthead-links{display:none}.campus-name{font-size:15px}.campus-masthead{padding:10px 12px}.campus-calendar-label{padding:6px 12px}}
+
+/* New Kansas display typography. Keep the cycling campus mockup independent. */
+h1, h2.big, .cta h2 {
+  font-family: "new-kansas", Georgia, serif;
+  font-weight: 600;
+  letter-spacing: -.035em;
+}
+/* Adobe's swash alternates are italic faces; use just the initial. */
+h1::first-letter, h2.big::first-letter, .cta h2::first-letter {
+  font-family: "new-kansas-swash", "new-kansas", Georgia, serif;
+  font-weight: 600;
+  font-style: italic;
+}
