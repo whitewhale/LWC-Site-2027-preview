@@ -174,4 +174,4 @@
     section.prepend(nav);
   });
 
-})(window, document, livewhale.jQuery);
+})(window, document, window.livewhale?.jQuery || window.jQuery || null);
