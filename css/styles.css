@@ -276,4 +276,5 @@ h1::first-letter, h2.big::first-letter, .cta h2::first-letter {
   font-family: "new-kansas-swash", "new-kansas", Georgia, serif;
   font-weight: 600;
   font-style: italic;
+  line-height: 0;
 }
