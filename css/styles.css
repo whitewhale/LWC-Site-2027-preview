@@ -278,3 +278,123 @@ h1::first-letter, h2.big::first-letter, .cta h2::first-letter {
   font-style: italic;
   line-height: 0;
 }
+
+/* Theme variations for the fictional campus calendar preview. */
+.campus-theme {
+  --masthead-height: 62px;
+  --masthead-align: center;
+  --sidebar-bg: var(--campus-primary);
+  --sidebar-text: #fff;
+  --filter-bg: transparent;
+  --filter-text: #fff;
+  --filter-border: rgba(255,255,255,.18);
+  --filter-radius: 0px;
+  --campus-display-name: "Northfield University";
+  --campus-display-tagline: "Ideas grow here.";
+  --campus-display-links: "Academics     Admissions     Campus Life";
+  --campus-display-calendar: "University Events Calendar";
+}
+.campus-theme.theme-2 {
+  --masthead-height: 142px;
+  --masthead-align: flex-end;
+  --sidebar-bg: #fff;
+  --sidebar-text: #872d3b;
+  --filter-bg: #f7e9eb;
+  --filter-text: #872d3b;
+  --filter-border: #e5c6cb;
+  --filter-radius: 7px;
+  --campus-display-name: "Westbridge College";
+  --campus-display-tagline: "Learn boldly.";
+  --campus-display-links: "About     Academics     Student Life";
+  --campus-display-calendar: "Events at Westbridge";
+}
+.campus-theme.theme-3 {
+  --masthead-height: 100px;
+  --sidebar-bg: #f4faf4;
+  --sidebar-text: #125c4b;
+  --filter-bg: #fff;
+  --filter-text: #125c4b;
+  --filter-border: #c9ded0;
+  --filter-radius: 4px;
+  --campus-display-name: "Cedar Valley";
+  --campus-display-tagline: "Explore what’s possible.";
+  --campus-display-links: "Discover     Visit     Community";
+  --campus-display-calendar: "Campus Happenings";
+}
+.campus-theme.theme-4 {
+  --masthead-height: 172px;
+  --masthead-align: flex-end;
+  --sidebar-bg: var(--campus-primary);
+  --campus-display-name: "Bellwether University";
+  --campus-display-tagline: "An education in possibility.";
+  --campus-display-links: "Study     Research     Experience";
+  --campus-display-calendar: "What’s On at Bellwether";
+}
+.campus-theme.theme-5 {
+  --masthead-height: 78px;
+  --sidebar-bg: #fff;
+  --sidebar-text: #a64d21;
+  --filter-bg: #fff4dc;
+  --filter-text: #a64d21;
+  --filter-border: #e8c999;
+  --filter-radius: 20px;
+  --campus-display-name: "Sierra Arts Institute";
+  --campus-display-tagline: "Make something matter.";
+  --campus-display-links: "Programs     Gallery     Visit";
+  --campus-display-calendar: "Events & Exhibitions";
+}
+.campus-theme .campus-masthead {
+  min-height: var(--masthead-height);
+  align-items: var(--masthead-align);
+  transition: min-height .8s, background-color .8s, padding .8s;
+}
+.campus-theme .campus-name,
+.campus-theme .campus-tagline,
+.campus-theme .campus-masthead-links,
+.campus-theme .campus-calendar-label { font-size: 0; }
+.campus-theme .campus-name::before {
+  content: var(--campus-display-name);
+  font-size: 18px;
+}
+.campus-theme .campus-tagline::before {
+  content: var(--campus-display-tagline);
+  font-size: 10px;
+}
+.campus-theme .campus-masthead-links::before {
+  content: var(--campus-display-links);
+  font-size: 10px;
+}
+.campus-theme .campus-calendar-label::before {
+  content: var(--campus-display-calendar);
+  font-size: 11px;
+}
+.campus-theme .demo-side {
+  background: var(--sidebar-bg);
+  color: var(--sidebar-text);
+  transition: background-color .8s, color .8s;
+}
+.campus-theme .demo-side h3 { color: var(--sidebar-text); }
+.campus-theme .hero-filter {
+  background: var(--filter-bg);
+  color: var(--filter-text);
+  border: 1px solid var(--filter-border);
+  border-radius: var(--filter-radius);
+  padding: 11px 12px;
+  margin: 4px 0;
+  transition: background-color .8s, color .8s, border-color .8s, border-radius .8s;
+}
+.campus-theme .hero-filter span:last-child { color: var(--filter-text); }
+.campus-theme .hero-filter-form .hero-search input {
+  border: 1px solid var(--filter-border);
+  border-radius: var(--filter-radius);
+  background: var(--filter-bg);
+  color: var(--filter-text);
+  padding: 11px 36px 11px 12px;
+  transition: background-color .8s, color .8s, border-color .8s;
+}
+.campus-theme .hero-filter-form .hero-search input::placeholder { color: var(--filter-text); opacity: .7; }
+.campus-theme .hero-filter-form .hero-search button { color: var(--filter-text); right: 3px; }
+@media (max-width:650px) {
+  .campus-theme .campus-masthead { min-height: calc(var(--masthead-height) * .65); }
+  .campus-theme .campus-name::before { font-size: 15px; }
+}
