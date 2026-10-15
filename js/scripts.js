@@ -139,6 +139,7 @@
   // lightweight Next / Top links without adding CMS-managed markup.
   const sections = [...document.querySelectorAll('main > section')];
 
+  const sectionNavs = [];
   sections.forEach((section, index) => {
     // The hero already has the site header; a second sticky bar obscures its headline.
     if (section.classList.contains('hero')) return;
@@ -174,6 +175,20 @@
 
     nav.append(titleEl, links);
     section.prepend(nav);
+    sectionNavs.push({section, nav});
   });
+
+  // Reveal each section label only once it reaches the sticky header position.
+  const updateSectionNavs = () => {
+    if (window.innerWidth > 650) return;
+    const headerHeight = document.querySelector('body > header')?.getBoundingClientRect().height || 66;
+    sectionNavs.forEach(({section, nav}) => {
+      const bounds = section.getBoundingClientRect();
+      nav.classList.toggle('is-stuck', bounds.top <= headerHeight && bounds.bottom > headerHeight + nav.offsetHeight);
+    });
+  };
+  window.addEventListener('scroll', updateSectionNavs, {passive:true});
+  window.addEventListener('resize', updateSectionNavs);
+  updateSectionNavs();
 
 })(window, document, window.livewhale?.jQuery || window.jQuery || null);
