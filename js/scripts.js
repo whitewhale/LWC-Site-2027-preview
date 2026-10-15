@@ -140,6 +140,8 @@
   const sections = [...document.querySelectorAll('main > section')];
 
   sections.forEach((section, index) => {
+    // The hero already has the site header; a second sticky bar obscures its headline.
+    if (section.classList.contains('hero')) return;
     if (!section.id) section.id = `section-${index + 1}`;
 
     const heading = section.querySelector('.kicker, .eyebrow, h2, h1, strong');
