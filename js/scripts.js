@@ -124,6 +124,57 @@
     }
   }
 
+
+  // Vimeo playback is viewport-driven, muted for browser autoplay policy, and
+  // disabled for people requesting reduced motion. Vimeo controls remain usable.
+  const videoFrame = document.getElementById('livewhale-video');
+  if (videoFrame && window.Vimeo?.Player) {
+    const player = new window.Vimeo.Player(videoFrame);
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+    let inView = false;
+    let ready = false;
+    let autoPlaying = false;
+    let manuallyPaused = false;
+
+    player.ready().then(async () => {
+      ready = true;
+      // The requested track must exist in the Vimeo video's language settings.
+      try { await player.enableTextTrack('en', 'captions'); }
+      catch (_) { try { await player.enableTextTrack('en'); } catch (_) {} }
+      syncVideoPlayback();
+    }).catch(() => {});
+
+    player.on('pause', () => {
+      if (inView && !autoPlaying && !document.hidden) manuallyPaused = true;
+    });
+    player.on('play', () => { manuallyPaused = false; });
+
+    async function syncVideoPlayback() {
+      if (!ready) return;
+      if (!inView || document.hidden) {
+        autoPlaying = true;
+        try { await player.pause(); } catch (_) {}
+        autoPlaying = false;
+      } else if (!reducedMotion.matches && !manuallyPaused) {
+        autoPlaying = true;
+        try { await player.setMuted(true); await player.play(); } catch (_) {}
+        autoPlaying = false;
+      }
+    }
+    if ('IntersectionObserver' in window) {
+      const observer = new IntersectionObserver(entries => {
+        inView = entries[0].intersectionRatio >= .5;
+        syncVideoPlayback();
+      }, {threshold:[0,.5,1]});
+      observer.observe(videoFrame);
+    } else {
+      // No automatic playback without reliable viewport visibility detection.
+      inView = false;
+    }
+    document.addEventListener('visibilitychange', syncVideoPlayback);
+    if (reducedMotion.addEventListener) reducedMotion.addEventListener('change', syncVideoPlayback);
+  }
+
   // Five self-contained campus identities; all design tokens live in CSS.
   const campusPreview = document.getElementById('campus-theme-preview');
   if (campusPreview && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
